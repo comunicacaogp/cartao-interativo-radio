@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>Super FM 98.9</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue:      #0047CC;
+    --blue-mid:  #0057F5;
+    --blue-dark: #003399;
+    --yellow:    #FFD700;
+    --yellow-dark:#E6B800;
+    --bg:        #f6f7fb;
+    --white:     #ffffff;
+    --border:    #dce6ff;
+    --text:      #0a1a4a;
+    --muted:     #6b7fb5;
+    --radius:    18px;
+    --radius-sm: 12px;
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 50px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 430px;
+    background: var(--bg);
+  }
+
+  /* ══ CAPA ══ */
+  .hero {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content:'';
+    position:absolute; top:0; left:0;
+    width:100%; height:5px; z-index:3;
+    background: linear-gradient(90deg, var(--blue-dark), var(--blue), var(--yellow), var(--blue-mid), var(--blue-dark));
+    background-size: 300% 100%;
+    animation: brandSlide 4s linear infinite;
+  }
+
+  @keyframes brandSlide {
+    0%   { background-position:0%; }
+    100% { background-position:300%; }
+  }
+
+  .hero img {
+    width:100%; height:auto; display:block;
+    animation: fadeIn .8s ease both;
+  }
+
+  @keyframes fadeIn {
+    from { opacity:0; transform:scale(1.03); }
+    to   { opacity:1; transform:scale(1); }
+  }
+
+  /* ══ SEÇÕES ══ */
+  .section {
+    padding: 18px 16px 0;
+    animation: slideUp .6s ease both;
+  }
+
+  .section + .section { padding-top: 14px; }
+
+  @keyframes slideUp {
+    from { opacity:0; transform:translateY(20px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  .section:nth-child(2) { animation-delay: .15s; }
+  .section:nth-child(3) { animation-delay: .25s; }
+  .section:nth-child(4) { animation-delay: .35s; }
+  .section:nth-child(5) { animation-delay: .45s; }
+
+  /* label da seção */
+  .sec-label {
+    font-size: 9.5px; font-weight: 800;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+    padding-left: 2px;
+  }
+
+  /* ══ CARD BRANCO (agrupador) ══ */
+  .group {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1.5px solid var(--border);
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(30,35,100,.05);
+  }
+
+  /* ══ ITEM DE CONTATO (linha dentro do group) ══ */
+  .contact-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 16px;
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    transition: background .18s;
+    -webkit-tap-highlight-color: transparent;
+    position: relative; overflow: hidden;
+  }
+
+  .contact-item:last-child { border-bottom: none; }
+  .contact-item:hover { background: #f8f9ff; }
+  .contact-item:active { background: #f0f2fa; }
+
+  .ci-icon {
+    width: 42px; height: 42px; flex-shrink:0;
+    border-radius: 11px;
+    display: flex; align-items:center; justify-content:center;
+  }
+  .ci-icon svg { width:22px; height:22px; fill:white; }
+
+  .ci-text { flex:1; }
+  .ci-label { font-size:10px; font-weight:700; color:var(--muted); letter-spacing:.8px; text-transform:uppercase; }
+  .ci-val   { font-size:13px; font-weight:800; color:var(--text); margin-top:2px; }
+
+  .ci-arrow { color: var(--border); flex-shrink:0; }
+  .ci-arrow svg { width:16px; height:16px; fill:var(--muted); }
+
+  /* ícones coloridos */
+  .ic-wpp    { background: linear-gradient(135deg,#25d366,#128c7e); }
+  .ic-phone  { background: linear-gradient(135deg, var(--blue-mid), var(--blue-dark)); }
+  .ic-insta  { background: linear-gradient(135deg,#f09433,#dc2743 55%,#bc1888); }
+  .ic-site   { background: linear-gradient(135deg, var(--blue), var(--blue-dark)); }
+
+  /* ══ APP BADGES ══ */
+  .app-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .app-badge {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    color: white;
+    transition: transform .2s ease, filter .2s;
+    -webkit-tap-highlight-color: transparent;
+    position: relative; overflow: hidden;
+  }
+
+  .app-badge:hover  { transform:translateY(-2px); filter:brightness(1.1); }
+  .app-badge:active { transform:scale(.97); }
+
+  .ab-apple  { background: #1c1c1e; }
+  .ab-google { background: #01875f; }
+
+  /* label da seção com cor da marca */
+  .sec-label { color: var(--blue); }
+
+  .app-badge svg { width:24px; height:24px; fill:white; flex-shrink:0; }
+
+  .ab-text { display:flex; flex-direction:column; }
+  .ab-sub  { font-size:9px; font-weight:600; opacity:.75; letter-spacing:.5px; text-transform:uppercase; }
+  .ab-name { font-size:13px; font-weight:800; margin-top:1px; line-height:1.1; }
+
+  /* ══ PLAYER AO VIVO ══ */
+  .live-bar {
+    display: flex; align-items:center; gap:12px;
+    padding: 14px 16px;
+    background: linear-gradient(135deg, var(--blue-dark), var(--blue-mid));
+    border-radius: var(--radius);
+    margin: 18px 16px 0;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    animation: slideUp .5s .1s ease both;
+    transition: filter .2s;
+    position: relative; overflow: hidden;
+  }
+  .live-bar:hover  { filter: brightness(1.08); }
+  .live-bar:active { filter: brightness(.95); }
+
+  /* botão play/pause */
+  .play-btn {
+    width: 38px; height: 38px; flex-shrink:0;
+    border-radius: 50%;
+    background: rgba(255,255,255,.2);
+    display: flex; align-items:center; justify-content:center;
+    transition: background .2s, transform .2s;
+    border: 1.5px solid rgba(255,255,255,.4);
+  }
+  .live-bar:hover .play-btn { background: rgba(255,255,255,.3); }
+  .play-btn svg { width:18px; height:18px; fill:white; }
+
+  /* ícone pause (oculto por padrão) */
+  .icon-pause { display:none; }
+  .live-bar.playing .icon-play  { display:none; }
+  .live-bar.playing .icon-pause { display:block; }
+
+  /* ponto piscante */
+  .live-dot {
+    width:9px; height:9px; border-radius:50%;
+    background:white; flex-shrink:0;
+    opacity: 0; /* visível só quando tocando */
+    transition: opacity .3s;
+    animation: livePulse 1.2s ease-in-out infinite;
+  }
+  .live-bar.playing .live-dot { opacity: 1; }
+
+  @keyframes livePulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50%      { opacity:.35; transform:scale(.65); }
+  }
+
+  .live-text { flex:1; }
+  .live-title { font-size:12px; font-weight:900; color:white; letter-spacing:.5px; text-transform:uppercase; }
+  .live-sub   { font-size:10px; color:rgba(255,255,255,.8); font-weight:600; margin-top:2px; }
+
+  /* carregando */
+  .live-loading {
+    font-size:9px; font-weight:700; color:rgba(255,255,255,.7);
+    letter-spacing:1px; text-transform:uppercase;
+    display:none;
+  }
+  .live-bar.loading .live-loading { display:block; }
+  .live-bar.loading .live-sub     { display:none; }
+
+  /* ondas — animam só quando playing */
+  .wave-bars {
+    display:flex; align-items:center; gap:3px; height:22px;
+  }
+  .wave-bars span {
+    display:block; width:3px; border-radius:99px;
+    background:rgba(255,255,255,.8);
+    animation: waveAnim 1.1s ease-in-out infinite;
+    animation-play-state: paused;
+    transform: scaleY(.3);
+    transition: transform .3s;
+  }
+  .live-bar.playing .wave-bars span { animation-play-state: running; transform: scaleY(1); }
+
+  .wave-bars span:nth-child(1){height:6px; animation-delay:0s;}
+  .wave-bars span:nth-child(2){height:16px;animation-delay:.1s;}
+  .wave-bars span:nth-child(3){height:22px;animation-delay:.2s;}
+  .wave-bars span:nth-child(4){height:14px;animation-delay:.3s;}
+  .wave-bars span:nth-child(5){height:8px; animation-delay:.15s;}
+
+  @keyframes waveAnim {
+    0%,100%{transform:scaleY(1);}
+    50%    {transform:scaleY(.35);}
+  }
+
+  /* ══ FOOTER ══ */
+  .footer {
+    margin: 18px 16px 0;
+    background: linear-gradient(135deg, var(--blue-dark), var(--blue-mid));
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+  }
+  .footer .dot { width:4px; height:4px; border-radius:50%; background:var(--yellow); }
+  .footer span { color:rgba(255,255,255,.5); font-size:9.5px; font-weight:700; letter-spacing:1.8px; text-transform:uppercase; }
+
+  /* ══ RIPPLE ══ */
+  .ripple {
+    position:absolute; border-radius:50%; pointer-events:none;
+    transform:scale(0); animation:rip .55s linear;
+    background:rgba(255,255,255,.2);
+  }
+  @keyframes rip { to { transform:scale(4); opacity:0; } }
+
+  @media (min-width:431px) {
+    body { padding:24px 16px 60px; }
+    .card { border-radius:var(--radius); overflow:hidden; box-shadow:0 20px 60px rgba(30,35,100,.14); }
+    .hero { border-radius:var(--radius) var(--radius) 0 0; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- CAPA -->
+  <div class="hero">
+    <img src="https://raw.githubusercontent.com/comunicacaogp/cartao-interativo-radio/main/R%C3%A1dio.png"
+         alt="Super FM 98.9"
+         onerror="this.style.display='none';"/>
+  </div>
+
+  <!-- PLAYER AO VIVO -->
+  <audio id="player"></audio>
+
+  <div class="live-bar" id="liveBar" onclick="togglePlay()">
+    <!-- botão play/pause -->
+    <div class="play-btn">
+      <!-- play -->
+      <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <!-- pause -->
+      <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </div>
+
+    <div class="live-text">
+      <div class="live-title">Super FM 98.9 · Ao Vivo</div>
+      <div class="live-sub">Toque para ouvir</div>
+      <div class="live-loading">Conectando...</div>
+    </div>
+
+    <div class="live-dot"></div>
+
+    <div class="wave-bars">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <!-- BAIXE O APP -->
+  <div class="section">
+    <div class="sec-label">Baixe o App</div>
+    <div class="app-row">
+      <a class="app-badge ab-apple" href="https://apps.apple.com/br/app/superfmcr/id1636497843" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        <div class="ab-text">
+          <span class="ab-sub">Disponível na</span>
+          <span class="ab-name">App Store</span>
+        </div>
+      </a>
+      <a class="app-badge ab-google" href="https://play.google.com/store/apps/details?id=hoostcomv2.superfm1&pcampaignid=web_share" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M3.18 23.76c.3.17.64.22.98.15l.06-.03 11.2-6.47-2.38-2.38-9.86 8.73zm-1.1-19.4C2.02 4.57 2 4.82 2 5.09v13.82c0 .27.02.52.08.75l.04.12 7.74-7.74v-.18L2.08 4.36zm15.5 8.52l-2.67-1.54-2.63 2.63 2.63 2.62 2.68-1.55c.76-.44.76-1.16-.01-1.6v-.56zm-14.4 9.09l.06.04 9.7-9.7-2.38-2.38-7.38 12.04z"/></svg>
+        <div class="ab-text">
+          <span class="ab-sub">Disponível na</span>
+          <span class="ab-name">Play Store</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- CONTATO -->
+  <div class="section">
+    <div class="sec-label">Contato</div>
+    <div class="group">
+      <a class="contact-item" href="https://wa.me/556732472907" target="_blank">
+        <div class="ci-icon ic-wpp">
+          <svg viewBox="0 0 32 32"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.737 5.469 2.027 7.77L0 32l8.437-2.013A15.938 15.938 0 0 0 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm8.406 22.594c-.35.981-2.038 1.875-2.813 1.994-.719.113-1.625.159-2.619-.163-.606-.194-1.381-.456-2.375-.9-4.175-1.813-6.9-6.013-7.106-6.288-.2-.275-1.631-2.169-1.631-4.137 0-1.969 1.031-2.938 1.4-3.338.369-.4.8-.5 1.069-.5.269 0 .538.003.775.013.25.011.581-.094.912.7.344.819 1.169 2.794 1.275 2.994.106.2.175.438.031.706-.144.269-.213.431-.425.663-.213.231-.444.519-.637.694-.213.194-.431.4-.188.788.244.387 1.081 1.781 2.319 2.887 1.594 1.419 2.938 1.863 3.325 2.075.388.213.613.181.85-.106.238-.288 1.013-1.181 1.281-1.587.269-.406.538-.338.906-.2.369.137 2.338 1.1 2.738 1.3.4.2.663.3.763.469.1.169.1.975-.25 1.956z"/></svg>
+        </div>
+        <div class="ci-text">
+          <div class="ci-label">WhatsApp</div>
+          <div class="ci-val">(67) 3247-2907</div>
+        </div>
+        <div class="ci-arrow"><svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></div>
+      </a>
+      <a class="contact-item" href="tel:+556732472907">
+        <div class="ci-icon ic-phone">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        </div>
+        <div class="ci-text">
+          <div class="ci-label">Telefone</div>
+          <div class="ci-val">(67) 3247-2907</div>
+        </div>
+        <div class="ci-arrow"><svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- REDES SOCIAIS -->
+  <div class="section">
+    <div class="sec-label">Redes &amp; Site</div>
+    <div class="group">
+      <a class="contact-item" href="https://www.instagram.com/superfm98.9/" target="_blank">
+        <div class="ci-icon ic-insta">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </div>
+        <div class="ci-text">
+          <div class="ci-label">Instagram</div>
+          <div class="ci-val">@superfm98.9</div>
+        </div>
+        <div class="ci-arrow"><svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></div>
+      </a>
+      <a class="contact-item" href="https://www.superfmcr.com.br/" target="_blank">
+        <div class="ci-icon ic-site">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        </div>
+        <div class="ci-text">
+          <div class="ci-label">Site</div>
+          <div class="ci-val">superfmcr.com.br</div>
+        </div>
+        <div class="ci-arrow"><svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="dot"></div>
+    <span>Super FM 98.9</span>
+    <div class="dot"></div>
+    <span>Costa Rica · MS</span>
+    <div class="dot"></div>
+  </div>
+
+</div>
+
+<script>
+  const STREAM  = 'https://cast3.hoost.com.br:8217/live';
+  const player  = document.getElementById('player');
+  const liveBar = document.getElementById('liveBar');
+  const liveSub = document.querySelector('.live-sub');
+
+  function togglePlay() {
+    if (player.paused) {
+      // define src somente no clique (gesto do usuário — evita bloqueio do browser)
+      player.src = STREAM;
+      liveBar.classList.add('loading');
+      liveBar.classList.remove('playing');
+      liveSub.textContent = 'Conectando...';
+      player.play().catch(() => {
+        setStop();
+      });
+    } else {
+      setStop();
+    }
+  }
+
+  function setStop() {
+    player.pause();
+    player.removeAttribute('src');
+    player.load(); // libera o buffer
+    liveBar.classList.remove('playing', 'loading');
+    liveSub.textContent = 'Toque para ouvir';
+  }
+
+  player.addEventListener('playing', () => {
+    liveBar.classList.remove('loading');
+    liveBar.classList.add('playing');
+    liveSub.textContent = 'Ao vivo agora ●';
+  });
+
+  player.addEventListener('waiting', () => {
+    liveBar.classList.add('loading');
+    liveBar.classList.remove('playing');
+  });
+
+  player.addEventListener('error', () => setStop());
+
+  /* ripple */
+  document.querySelectorAll('.contact-item, .app-badge').forEach(el => {
+    el.addEventListener('click', function(e) {
+      const r = this.getBoundingClientRect();
+      const size = Math.max(r.width, r.height) * 2;
+      const rip = document.createElement('span');
+      rip.className = 'ripple';
+      rip.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-r.left-size/2}px;top:${e.clientY-r.top-size/2}px`;
+      this.appendChild(rip);
+      setTimeout(() => rip.remove(), 600);
+    });
+  });
+</script>
+</body>
+</html>
